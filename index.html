@@ -35,11 +35,11 @@ body.align-mode .pv:hover::after,body.align-mode .pv.dragging::after{display:blo
     <div class="field"><label>Last Absent Hour</label><input id="lastAbsentHour"></div>
     <div class="field"><label>Replacement Firefighter</label><input id="replacementName"></div>
     <div class="field"><label>Person Taking Leave</label><input id="personTakingLeaveName"></div>
-    <div class="field"><label>Supervisor</label><input id="supervisorName"></div>
+    <div class="field"><label>Supervisor Signature</label><div class="notice">Supervisor signs below. This line is not a typed name.</div></div>
     <div class="field"><label>Exchange Type</label><select id="exchangeKind"><option value="first">First Exchange</option><option value="payback">Exchange Payback</option></select></div>
   </div></div>
 
-  <div class="card no-print"><h3>Replacement Signature</h3><div class="sig-wrap"><canvas id="sigReplacement" class="sig-pad"></canvas><div class="sig-actions"><span class="muted">Sign with finger/mouse</span><button class="btn small secondary" onclick="clearSig('replacement')">Clear</button></div></div><h3>Person Taking Leave Signature</h3><div class="sig-wrap"><canvas id="sigLeave" class="sig-pad"></canvas><div class="sig-actions"><span class="muted">Sign with finger/mouse</span><button class="btn small secondary" onclick="clearSig('leave')">Clear</button></div></div></div>
+  <div class="card no-print"><h3>Replacement Signature</h3><div class="sig-wrap"><canvas id="sigReplacement" class="sig-pad"></canvas><div class="sig-actions"><span class="muted">Sign with finger/mouse</span><button class="btn small secondary" onclick="clearSig('replacement')">Clear</button></div></div><h3>Person Taking Leave Signature</h3><div class="sig-wrap"><canvas id="sigLeave" class="sig-pad"></canvas><div class="sig-actions"><span class="muted">Sign with finger/mouse</span><button class="btn small secondary" onclick="clearSig('leave')">Clear</button></div></div><h3>Supervisor Signature</h3><div class="sig-wrap"><canvas id="sigSupervisor" class="sig-pad"></canvas><div class="sig-actions"><span class="muted">Supervisor signs here</span><button class="btn small secondary" onclick="clearSig('supervisor')">Clear</button></div></div></div>
   <div class="card no-print"><div class="row"><button class="btn" onclick="saveExchange()">Save</button><button class="btn secondary" onclick="makeLink()">Create Signing Link</button><button class="btn secondary" onclick="printExact()">Print / Save PDF</button></div><div id="linkBox" class="sharebox hide"></div></div>
   <div class="card no-print"><h3>Alignment Mode</h3><p class="notice">Turn this on, then click/hold a yellow field and drag it. Top and bottom copies move independently. Copy the JSON below and send it to me.</p><div class="row"><button class="btn secondary" onclick="toggleAlign()">Toggle Drag Mode</button><button class="btn secondary" onclick="copyAlignData()">Copy Alignment Data</button><button class="btn secondary" onclick="resetAlignment()">Reset Alignment</button></div><div id="alignStatus" class="align-status">Drag mode off.</div><textarea id="alignData" class="align-data" readonly></textarea></div>
   <div class="card print-card"><div class="paper-wrap"><div id="paper" class="paper"></div></div></div></section>
@@ -55,21 +55,62 @@ function today(){return new Date().toISOString().slice(0,10)}function addDays(d,
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');if(id==='dash')renderList();if(id==='balance')renderBalance();updatePreview()}
 function getAll(){return JSON.parse(localStorage.et_exchanges||'[]')}function setAll(a){localStorage.et_exchanges=JSON.stringify(a)}function profile(){return JSON.parse(localStorage.et_profile||'{}')}function saveProfile(o){localStorage.et_profile=JSON.stringify({...profile(),...o})}
 function initSig(id){let c=$(id),ctx=c.getContext('2d'),draw=false,last=null;function resize(){let saved=c.toDataURL();c.width=c.offsetWidth*devicePixelRatio;c.height=c.offsetHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);ctx.lineCap='round';ctx.lineJoin='round';ctx.lineWidth=2;ctx.strokeStyle='#111'}resize();new ResizeObserver(resize).observe(c);function pos(e){let r=c.getBoundingClientRect(),p=e.touches?e.touches[0]:e;return{x:p.clientX-r.left,y:p.clientY-r.top}}function start(e){e.preventDefault();draw=true;last=pos(e)}function move(e){if(!draw)return;e.preventDefault();let p=pos(e);ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();last=p;updatePreview()}function end(){draw=false;updatePreview()}c.addEventListener('mousedown',start);c.addEventListener('mousemove',move);window.addEventListener('mouseup',end);c.addEventListener('touchstart',start,{passive:false});c.addEventListener('touchmove',move,{passive:false});c.addEventListener('touchend',end);canvases[id]={c,ctx,clear(){ctx.clearRect(0,0,c.width,c.height)},data(){return c.toDataURL('image/png')}}}
-function clearSig(which){let id=which==='replacement'?'sigReplacement':which==='leave'?'sigLeave':'sigRemote';canvases[id]?.clear();updatePreview()}
+function clearSig(which){let id=which==='replacement'?'sigReplacement':which==='leave'?'sigLeave':which==='supervisor'?'sigSupervisor':'sigRemote';canvases[id]?.clear();updatePreview()}
 function updateLeaveUI(){ $('otherWrap').classList.toggle('hide',$('leaveType').value!=='Other'); $('shiftWrap').classList.toggle('hide',$('workHoursAbsent').value!=='12'); }
 function applyShiftAuto(){let d=$('firstAbsentDate').value||$('date').value||today();$('firstAbsentDate').value=d;if($('workHoursAbsent').value==='24'){$('firstAbsentHour').value='7:00 AM';$('lastAbsentHour').value='7:00 AM';$('lastAbsentDate').value=addDays(d,1)}else{if($('shiftType').value==='night'){$('firstAbsentHour').value='7:00 PM';$('lastAbsentHour').value='7:00 AM';$('lastAbsentDate').value=addDays(d,1)}else{$('firstAbsentHour').value='7:00 AM';$('lastAbsentHour').value='7:00 PM';$('lastAbsentDate').value=d}}updateLeaveUI();updatePreview()}
-function newExchange(){current={id:crypto.randomUUID(),createdAt:new Date().toISOString()};let p=profile();fields.forEach(f=>{if($(f))$(f).value=''});$('date').value=today();$('employeeName').value=p.employeeName||'';$('rank').value=p.rank||'Firefighter';$('leaveType').value='Authorized Leave';$('reason').value='Personal';$('workHoursAbsent').value='24';$('shiftType').value='day';$('nonWorkDaysIncluded').value='0';$('exchangeKind').value='first';$('firstAbsentDate').value=today();clearSig('replacement');clearSig('leave');applyShiftAuto();show('form')}
-function dataFromInputs(){let o=current||{id:crypto.randomUUID(),createdAt:new Date().toISOString()};fields.forEach(f=>{if($(f))o[f]=$(f).value});o.replacementSignature=canvases.sigReplacement?.data()||o.replacementSignature||'';o.personTakingLeaveSignature=canvases.sigLeave?.data()||o.personTakingLeaveSignature||'';o.firstExchange=o.exchangeKind==='first';o.exchangePayback=o.exchangeKind==='payback';o.owedBy=o.exchangeKind==='first'?o.employeeName:o.replacementName;o.owedTo=o.exchangeKind==='first'?o.replacementName:o.employeeName;o.dueDate=addMonths(o.date||today(),6);o.status='Active';return o}
+function newExchange(){current={id:crypto.randomUUID(),createdAt:new Date().toISOString()};let p=profile();fields.forEach(f=>{if($(f))$(f).value=''});$('date').value=today();$('employeeName').value=p.employeeName||'';$('rank').value=p.rank||'Firefighter';$('leaveType').value='Authorized Leave';$('reason').value='Personal';$('workHoursAbsent').value='24';$('shiftType').value='day';$('nonWorkDaysIncluded').value='0';$('exchangeKind').value='first';$('firstAbsentDate').value=today();clearSig('replacement');clearSig('leave');clearSig('supervisor');applyShiftAuto();show('form')}
+function dataFromInputs(){let o=current||{id:crypto.randomUUID(),createdAt:new Date().toISOString()};fields.forEach(f=>{if($(f))o[f]=$(f).value});o.replacementSignature=canvases.sigReplacement?.data()||o.replacementSignature||'';o.personTakingLeaveSignature=canvases.sigLeave?.data()||o.personTakingLeaveSignature||'';o.supervisorSignature=canvases.sigSupervisor?.data()||o.supervisorSignature||'';o.firstExchange=o.exchangeKind==='first';o.exchangePayback=o.exchangeKind==='payback';o.owedBy=o.exchangeKind==='first'?o.employeeName:o.replacementName;o.owedTo=o.exchangeKind==='first'?o.replacementName:o.employeeName;o.dueDate=addMonths(o.date||today(),6);o.status='Active';return o}
 function saveExchange(){let o=dataFromInputs();current=o;let all=getAll().filter(x=>x.id!==o.id);all.unshift(o);setAll(all);saveProfile({employeeName:o.employeeName,rank:o.rank});alert('Saved on this device.');renderList();updatePreview()}
-function openEx(id){let o=getAll().find(x=>x.id===id);if(!o)return;current=o;fields.forEach(f=>{if($(f))$(f).value=o[f]||''});updateLeaveUI();show('form');updatePreview()}
+function openEx(id){let o=getAll().find(x=>x.id===id);if(!o)return;current=o;fields.forEach(f=>{if($(f))$(f).value=o[f]||''});updateLeaveUI();if($('employeeName')&&$('personTakingLeaveName')&&!$('personTakingLeaveName').value)$('personTakingLeaveName').value=$('employeeName').value;show('form');updatePreview()}
 function renderList(){let all=getAll();$('exchangeList').innerHTML=all.length?all.map(o=>`<div class="list-item"><div><b>${esc(o.employeeName||'No name')}</b><div class="muted">${esc(o.replacementName||'No replacement')} • ${esc(o.workHoursAbsent||'0')} hrs • Due ${esc(o.dueDate||'')}</div></div><div>${badge(o.dueDate||today())}<br><button class="btn small secondary" onclick="openEx('${o.id}')">Open</button></div></div>`).join(''):'<p class="muted">No saved exchanges yet.</p>'}
 function renderBalance(){let all=getAll(),map={};all.forEach(o=>{let k=(o.owedBy||'Unknown')+' → '+(o.owedTo||'Unknown');map[k]=map[k]||{hrs:0,due:o.dueDate};map[k].hrs+=Number(o.workHoursAbsent||0);if((o.dueDate||'')<map[k].due)map[k].due=o.dueDate});$('balanceList').innerHTML=Object.keys(map).length?Object.entries(map).map(([k,v])=>`<div class="list-item"><div><b>${esc(k)}</b><div class="muted">${v.hrs} total hours • next due ${v.due}</div></div>${badge(v.due)}</div>`).join(''):'<p class="muted">No balances yet.</p>'}
-function makeLink(){let o=dataFromInputs();let payload=btoa(unescape(encodeURIComponent(JSON.stringify({...o,replacementSignature:'',personTakingLeaveSignature:''}))));let url=location.href.split('#')[0]+'#sign='+payload;$('linkBox').classList.remove('hide');$('linkBox').innerHTML=`${url}<br><br><button class="btn small" onclick="navigator.clipboard.writeText('${url}')">Copy Link</button> <button class="btn small secondary" onclick="shareLink('${url}')">Share</button>`}
+function makeLink(){let o=dataFromInputs();let payload=btoa(unescape(encodeURIComponent(JSON.stringify({...o,replacementSignature:'',personTakingLeaveSignature:'',supervisorSignature:''}))));let url=location.href.split('#')[0]+'#sign='+payload;$('linkBox').classList.remove('hide');$('linkBox').innerHTML=`${url}<br><br><button class="btn small" onclick="navigator.clipboard.writeText('${url}')">Copy Link</button> <button class="btn small secondary" onclick="shareLink('${url}')">Share</button>`}
 function shareLink(url){if(navigator.share)navigator.share({title:'Exchange Time Form',url});else navigator.clipboard.writeText(url)}function printExact(){updatePreview();setTimeout(()=>window.print(),100)}
 
-const ALIGN_KEY='et_layout_top_bottom_independent_v2';
-const BASE_TOP_LAYOUT={"date":{"x":10.55,"y":5.98,"w":16,"h":1.45},"employeeName":{"x":44.09,"y":6.1,"w":27,"h":1.45},"rank":{"x":74.03,"y":6,"w":15,"h":1.45},"authorizedCheck":{"x":33.51,"y":8.1,"w":3,"h":1.7},"compCheck":{"x":53.55,"y":8.4,"w":3,"h":1.7},"otherCheck":{"x":74.05,"y":8.23,"w":18,"h":1.7},"reason":{"x":22.29,"y":11.23,"w":82,"h":1.65},"firstAbsentHour":{"x":5.18,"y":18.76,"w":9,"h":1.65},"firstAbsentDate":{"x":15.22,"y":19.21,"w":10,"h":1.65},"lastAbsentHour":{"x":24.94,"y":19.21,"w":9,"h":1.65},"lastAbsentDate":{"x":34.36,"y":19.27,"w":10,"h":1.65},"nonWorkDaysIncluded":{"x":49.57,"y":19.29,"w":10,"h":1.65},"workHoursAbsent":{"x":73.97,"y":18.85,"w":10,"h":1.65},"replacementSignature":{"x":7.95,"y":24.69,"w":24,"h":3.4},"replacementName":{"x":35.1,"y":25.91,"w":21,"h":1.65},"personTakingLeaveSignature":{"x":8.68,"y":29.48,"w":24,"h":3.4},"personTakingLeaveName":{"x":35,"y":31.84,"w":21,"h":1.65},"supervisorName":{"x":14.97,"y":36.32,"w":20,"h":1.65},"firstExchange":{"x":64.24,"y":37.69,"w":4,"h":2.6},"exchangePayback":{"x":63.91,"y":41.46,"w":4,"h":2.6}};
-function defaultLayout(){let out={};Object.entries(BASE_TOP_LAYOUT).forEach(([k,v])=>{out['top_'+k]={...v};out['bottom_'+k]={...v,y:Number((v.y+50.15).toFixed(2))};});return out;}
+const ALIGN_KEY='et_layout_exact_final_v3';
+const BASE_LAYOUT={
+  "top_date": {"x": 10.03, "y": 5.87, "w": 16, "h": 1.45},
+  "bottom_date": {"x": 10.77, "y": 55.17, "w": 16, "h": 1.45},
+  "top_employeeName": {"x": 44.09, "y": 6.1, "w": 27, "h": 1.45},
+  "bottom_employeeName": {"x": 43.12, "y": 55.1, "w": 27, "h": 1.45},
+  "top_rank": {"x": 74.03, "y": 6, "w": 15, "h": 1.45},
+  "bottom_rank": {"x": 71.4, "y": 55, "w": 15, "h": 1.45},
+  "top_authorizedCheck": {"x": 33.51, "y": 8.1, "w": 3, "h": 1.7},
+  "bottom_authorizedCheck": {"x": 33.06, "y": 56.91, "w": 3, "h": 1.7},
+  "top_compCheck": {"x": 53.55, "y": 8.4, "w": 3, "h": 1.7},
+  "bottom_compCheck": {"x": 53.55, "y": 58.55, "w": 3, "h": 1.7},
+  "top_otherCheck": {"x": 74.05, "y": 8.23, "w": 18, "h": 1.7},
+  "bottom_otherCheck": {"x": 74.05, "y": 58.38, "w": 18, "h": 1.7},
+  "top_reason": {"x": 22.29, "y": 11.23, "w": 82, "h": 1.65},
+  "bottom_reason": {"x": 22.36, "y": 60.41, "w": 82, "h": 1.65},
+  "top_firstAbsentHour": {"x": 5.18, "y": 18.76, "w": 9, "h": 1.65},
+  "bottom_firstAbsentHour": {"x": 5.04, "y": 68.3, "w": 9, "h": 1.65},
+  "top_firstAbsentDate": {"x": 15.22, "y": 19.21, "w": 10, "h": 1.65},
+  "bottom_firstAbsentDate": {"x": 14.57, "y": 68.28, "w": 10, "h": 1.65},
+  "top_lastAbsentHour": {"x": 24.94, "y": 19.21, "w": 9, "h": 1.65},
+  "bottom_lastAbsentHour": {"x": 24.88, "y": 68.18, "w": 9, "h": 1.65},
+  "top_lastAbsentDate": {"x": 34.36, "y": 19.27, "w": 10, "h": 1.65},
+  "bottom_lastAbsentDate": {"x": 34.15, "y": 68.24, "w": 10, "h": 1.65},
+  "top_nonWorkDaysIncluded": {"x": 49.57, "y": 19.29, "w": 10, "h": 1.65},
+  "bottom_nonWorkDaysIncluded": {"x": 49.57, "y": 67.6, "w": 10, "h": 1.65},
+  "top_workHoursAbsent": {"x": 73.97, "y": 18.85, "w": 10, "h": 1.65},
+  "bottom_workHoursAbsent": {"x": 73.42, "y": 67.82, "w": 10, "h": 1.65},
+  "top_replacementSignature": {"x": 7.95, "y": 24.69, "w": 24, "h": 3.4},
+  "bottom_replacementSignature": {"x": 8.05, "y": 73.65, "w": 24, "h": 3.4},
+  "top_replacementName": {"x": 35.1, "y": 25.91, "w": 21, "h": 1.65},
+  "bottom_replacementName": {"x": 34.4, "y": 75.06, "w": 21, "h": 1.65},
+  "top_personTakingLeaveSignature": {"x": 8.68, "y": 29.48, "w": 24, "h": 3.4},
+  "bottom_personTakingLeaveSignature": {"x": 8.41, "y": 78.81, "w": 24, "h": 3.4},
+  "top_personTakingLeaveName": {"x": 35, "y": 31.84, "w": 21, "h": 1.65},
+  "bottom_personTakingLeaveName": {"x": 34.91, "y": 80.51, "w": 21, "h": 1.65},
+  "top_supervisorName": {"x": 14.97, "y": 36.32, "w": 20, "h": 1.65},
+  "bottom_supervisorName": {"x": 15.13, "y": 86.05, "w": 20, "h": 1.65},
+  "top_firstExchange": {"x": 64.24, "y": 37.69, "w": 4, "h": 2.6},
+  "bottom_firstExchange": {"x": 63.22, "y": 86.63, "w": 4, "h": 2.6},
+  "top_exchangePayback": {"x": 63.91, "y": 41.46, "w": 4, "h": 2.6},
+  "bottom_exchangePayback": {"x": 63.91, "y": 91.61, "w": 4, "h": 2.6}
+};
+function defaultLayout(){return JSON.parse(JSON.stringify(BASE_LAYOUT));}
 function getLayout(){try{return {...defaultLayout(),...(JSON.parse(localStorage.getItem(ALIGN_KEY)||'{}'))}}catch(e){return defaultLayout()}}
 function saveLayout(l){localStorage.setItem(ALIGN_KEY,JSON.stringify(l));exportAlignData();}
 function labelName(section,field){return (section==='top'?'Top ':'Bottom ')+field;}
@@ -93,7 +134,7 @@ cells+=posKey(section,'replacementSignature',sig(o.replacementSignature),'sig');
 if(o.replacementName)cells+=posKey(section,'replacementName',esc(o.replacementName),'center');
 cells+=posKey(section,'personTakingLeaveSignature',sig(o.personTakingLeaveSignature),'sig');
 if(o.personTakingLeaveName)cells+=posKey(section,'personTakingLeaveName',esc(o.personTakingLeaveName),'center');
-if(o.supervisorName)cells+=posKey(section,'supervisorName',esc(o.supervisorName),'center');
+cells+=posKey(section,'supervisorName',sig(o.supervisorSignature),'sig');
 if(o.firstExchange)cells+=posKey(section,'firstExchange','✓','checkmark center');
 if(o.exchangePayback)cells+=posKey(section,'exchangePayback','✓','checkmark center');
 return cells;}
@@ -109,7 +150,7 @@ document.addEventListener('pointermove',function(e){if(!dragging)return;e.preven
 document.addEventListener('pointerup',function(){if(dragging?.el)dragging.el.classList.remove('dragging');dragging=null;});
 function updatePreview(){if(!$('paper'))return;let o=dataFromInputs();$('paper').innerHTML=exactPage(o);if($('signPaper'))$('signPaper').innerHTML=exactPage(o);attachDragHandlers();exportAlignData()}
 function loadSign(){let h=location.hash;if(!h.startsWith('#sign='))return;try{current=JSON.parse(decodeURIComponent(escape(atob(h.slice(6)))));show('sign');updatePreview()}catch(e){alert('Bad signing link')}}function acceptRemoteSig(){if(!current)return;current.replacementSignature=canvases.sigRemote.data();updatePreview();alert('Signature added on this device. Print or save PDF now. Real sync requires backend.')}
-fields.forEach(f=>setTimeout(()=>{if($(f)){$(f).addEventListener('input',updatePreview);$(f).addEventListener('change',()=>{if(['leaveType','workHoursAbsent','shiftType','firstAbsentDate','date'].includes(f))applyShiftAuto();else updatePreview()})}},0));['sigReplacement','sigLeave','sigRemote'].forEach(id=>initSig(id));newExchange();show('dash');loadSign();exportAlignData();
+fields.forEach(f=>setTimeout(()=>{if($(f)){$(f).addEventListener('input',()=>{if(f==='employeeName'&&$('personTakingLeaveName'))$('personTakingLeaveName').value=$('employeeName').value;updatePreview()});$(f).addEventListener('change',()=>{if(f==='employeeName'&&$('personTakingLeaveName'))$('personTakingLeaveName').value=$('employeeName').value;if(['leaveType','workHoursAbsent','shiftType','firstAbsentDate','date'].includes(f))applyShiftAuto();else updatePreview()})}},0));['sigReplacement','sigLeave','sigSupervisor','sigRemote'].forEach(id=>initSig(id));newExchange();show('dash');loadSign();exportAlignData();
 </script>
 </body>
 </html>
