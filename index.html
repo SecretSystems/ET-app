@@ -8,7 +8,7 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{margin:0;background:#f4f4f1;color:#111;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.app{max-width:980px;margin:auto;padding:14px 14px 80px}.top{position:sticky;top:0;z-index:10;background:rgba(244,244,241,.96);backdrop-filter:blur(8px);border-bottom:1px solid #ddd;padding:10px 0}.brand{font-size:25px;font-weight:900;margin:0}.sub,.muted{font-size:13px;color:#666}.row{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:14px;background:#111;color:#fff;padding:13px 16px;font-weight:800;min-height:48px;cursor:pointer}.btn.secondary{background:#fff;color:#111;border:1px solid #ccc}.btn.small{padding:8px 12px;min-height:38px;border-radius:10px;font-size:14px}.screen{display:none}.screen.active{display:block}.card{background:#fff;border:1px solid #ddd;border-radius:18px;padding:14px;margin:14px 0;box-shadow:0 1px 3px rgba(0,0,0,.04)}.grid{display:grid;grid-template-columns:1fr;gap:12px}.two{grid-template-columns:1fr 1fr}.field label{display:block;font-size:12px;font-weight:900;text-transform:uppercase;margin:0 0 5px;color:#333}.field input,.field select,.field textarea{width:100%;border:1px solid #bbb;border-radius:12px;background:#fff;padding:13px;min-height:48px}.field textarea{min-height:76px}.hide{display:none!important}.sig-wrap{border:1px solid #bbb;border-radius:14px;background:#fff;overflow:hidden}.sig-pad{display:block;width:100%;height:135px;touch-action:none;background:#fff}.sig-actions{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #ddd;padding:8px}.paper-wrap{overflow:auto;padding:10px;background:#ddd;border-radius:18px}.paper{width:816px;height:1054px;background:#fff;margin:auto;position:relative;border:1px solid #ccc;color:#111;font-family:Arial,Helvetica,sans-serif}.paper-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;z-index:0}.pv{position:absolute;z-index:2;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;line-height:1.1;white-space:nowrap;overflow:hidden;text-align:left}body.align-mode .pv{outline:2px dashed #f2c200;background:rgba(255,230,0,.22);cursor:grab;touch-action:none;overflow:visible}
 body.align-mode .pv.dragging{cursor:grabbing;outline:3px solid #111;background:rgba(0,0,0,.08);z-index:20}
 body.align-mode .pv::after{content:attr(data-label);position:absolute;left:0;top:-18px;background:#111;color:#fff;font-size:10px;padding:2px 4px;border-radius:4px;display:none;white-space:nowrap;font-family:Arial,sans-serif}
-body.align-mode .pv:hover::after,body.align-mode .pv.dragging::after{display:block}.align-data{width:100%;min-height:180px;border:1px solid #bbb;border-radius:12px;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}.align-status{font-weight:800;margin:8px 0;color:#111}.pv.center{text-align:center}.pv.sig img{max-width:100%;max-height:38px;object-fit:contain;display:block;margin:auto}.checkmark{font-size:24px;font-weight:900;line-height:1}.pill{display:inline-flex;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:800}.green{background:#dcfce7;color:#166534}.yellow{background:#fef3c7;color:#9a6a00}.red{background:#fee2e2;color:#b00020}.list-item{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;border-top:1px solid #eee;padding:12px 0}.list-item:first-child{border-top:0}.sharebox{word-break:break-all;background:#f7f7f7;border:1px dashed #aaa;border-radius:12px;padding:10px;font-size:12px;margin-top:12px}.notice{font-size:13px;color:#555;line-height:1.35}
+body.align-mode .pv:hover::after,body.align-mode .pv.dragging::after{display:block}.align-data{width:100%;min-height:180px;border:1px solid #bbb;border-radius:12px;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}.align-status{font-weight:800;margin:8px 0;color:#111}.pv.center{text-align:center}.pv.sig img{max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain;display:block;margin:auto}.checkmark{font-size:24px;font-weight:900;line-height:1}.pill{display:inline-flex;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:800}.green{background:#dcfce7;color:#166534}.yellow{background:#fef3c7;color:#9a6a00}.red{background:#fee2e2;color:#b00020}.list-item{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;border-top:1px solid #eee;padding:12px 0}.list-item:first-child{border-top:0}.sharebox{word-break:break-all;background:#f7f7f7;border:1px dashed #aaa;border-radius:12px;padding:10px;font-size:12px;margin-top:12px}.notice{font-size:13px;color:#555;line-height:1.35}
 .sig-title-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.inline-sign-btn{margin-left:auto}
 .btn.linkblue{background:#111!important;color:#fff!important;border:0!important;box-shadow:none!important;font-weight:900}.sig-actions{gap:8px;flex-wrap:wrap}.sig-actions .linkblue{margin-left:auto}
 
@@ -19,7 +19,7 @@ body.align-mode #alignData{display:block}
 
 
 @media(max-width:700px){.app{padding:10px}.two{grid-template-columns:1fr}.btn{width:100%}.row .btn{flex:1}.paper-wrap{margin-left:-10px;margin-right:-10px;border-radius:0}.sig-pad{height:125px}}
-@media print{body{background:white;-webkit-print-color-adjust:exact;print-color-adjust:exact}.no-print,.top,.card:not(.print-card){display:none!important}.app{max-width:none;padding:0}.print-card{display:block!important;border:0;margin:0;padding:0;box-shadow:none}.paper-wrap{overflow:visible;background:white;padding:0}.paper{width:8.5in;height:11in;border:0;margin:0;page-break-inside:avoid}.pv{font-size:10.5pt}.pv.sig img{max-height:.32in}@page{size:letter portrait;margin:0}html,body{width:8.5in;height:11in} }
+@media print{body{background:white;-webkit-print-color-adjust:exact;print-color-adjust:exact}.no-print,.top,.card:not(.print-card){display:none!important}.app{max-width:none;padding:0}.print-card{display:block!important;border:0;margin:0;padding:0;box-shadow:none}.paper-wrap{overflow:visible;background:white;padding:0}.paper{width:8.5in;height:11in;border:0;margin:0;page-break-inside:avoid}.pv{font-size:10.5pt}.pv.sig img{max-height:100%;width:100%;height:100%;object-fit:contain}@page{size:letter portrait;margin:0}html,body{width:8.5in;height:11in} }
 .signing-link-card .btn{font-size:15px}.signing-link-card .sharebox{margin-top:12px}</style>
 </head>
 <body>
@@ -116,46 +116,246 @@ function shareLink(url){if(navigator.share)navigator.share({title:'Exchange Time
 
 const ALIGN_KEY='et_layout_exact_final_v3';
 const BASE_LAYOUT={
-  "top_date": {"x": 10.03, "y": 5.87, "w": 16, "h": 1.45},
-  "bottom_date": {"x": 10.77, "y": 55.17, "w": 16, "h": 1.45},
-  "top_employeeName": {"x": 44.09, "y": 6.1, "w": 27, "h": 1.45},
-  "bottom_employeeName": {"x": 43.12, "y": 55.1, "w": 27, "h": 1.45},
-  "top_rank": {"x": 74.03, "y": 6, "w": 15, "h": 1.45},
-  "bottom_rank": {"x": 71.4, "y": 55, "w": 15, "h": 1.45},
-  "top_authorizedCheck": {"x": 33.51, "y": 8.1, "w": 3, "h": 1.7},
-  "bottom_authorizedCheck": {"x": 33.06, "y": 56.91, "w": 3, "h": 1.7},
-  "top_compCheck": {"x": 53.55, "y": 8.4, "w": 3, "h": 1.7},
-  "bottom_compCheck": {"x": 53.55, "y": 58.55, "w": 3, "h": 1.7},
-  "top_otherCheck": {"x": 74.05, "y": 8.23, "w": 18, "h": 1.7},
-  "bottom_otherCheck": {"x": 74.05, "y": 58.38, "w": 18, "h": 1.7},
-  "top_reason": {"x": 22.29, "y": 11.23, "w": 82, "h": 1.65},
-  "bottom_reason": {"x": 22.36, "y": 60.41, "w": 82, "h": 1.65},
-  "top_firstAbsentHour": {"x": 5.18, "y": 18.76, "w": 9, "h": 1.65},
-  "bottom_firstAbsentHour": {"x": 5.04, "y": 68.3, "w": 9, "h": 1.65},
-  "top_firstAbsentDate": {"x": 15.22, "y": 19.21, "w": 10, "h": 1.65},
-  "bottom_firstAbsentDate": {"x": 14.57, "y": 68.28, "w": 10, "h": 1.65},
-  "top_lastAbsentHour": {"x": 24.94, "y": 19.21, "w": 9, "h": 1.65},
-  "bottom_lastAbsentHour": {"x": 24.88, "y": 68.18, "w": 9, "h": 1.65},
-  "top_lastAbsentDate": {"x": 34.36, "y": 19.27, "w": 10, "h": 1.65},
-  "bottom_lastAbsentDate": {"x": 34.15, "y": 68.24, "w": 10, "h": 1.65},
-  "top_nonWorkDaysIncluded": {"x": 49.57, "y": 19.29, "w": 10, "h": 1.65},
-  "bottom_nonWorkDaysIncluded": {"x": 49.57, "y": 67.6, "w": 10, "h": 1.65},
-  "top_workHoursAbsent": {"x": 73.97, "y": 18.85, "w": 10, "h": 1.65},
-  "bottom_workHoursAbsent": {"x": 73.42, "y": 67.82, "w": 10, "h": 1.65},
-  "top_replacementSignature": {"x": 7.95, "y": 24.69, "w": 24, "h": 3.4},
-  "bottom_replacementSignature": {"x": 8.05, "y": 73.65, "w": 24, "h": 3.4},
-  "top_replacementName": {"x": 35.1, "y": 25.91, "w": 21, "h": 1.65},
-  "bottom_replacementName": {"x": 34.4, "y": 75.06, "w": 21, "h": 1.65},
-  "top_personTakingLeaveSignature": {"x": 8.68, "y": 29.48, "w": 24, "h": 3.4},
-  "bottom_personTakingLeaveSignature": {"x": 8.41, "y": 78.81, "w": 24, "h": 3.4},
-  "top_personTakingLeaveName": {"x": 35, "y": 31.84, "w": 21, "h": 1.65},
-  "bottom_personTakingLeaveName": {"x": 34.91, "y": 80.51, "w": 21, "h": 1.65},
-  "top_supervisorName": {"x": 14.97, "y": 36.32, "w": 20, "h": 1.65},
-  "bottom_supervisorName": {"x": 15.13, "y": 86.05, "w": 20, "h": 1.65},
-  "top_firstExchange": {"x": 64.24, "y": 37.69, "w": 4, "h": 2.6},
-  "bottom_firstExchange": {"x": 63.22, "y": 86.63, "w": 4, "h": 2.6},
-  "top_exchangePayback": {"x": 63.91, "y": 41.46, "w": 4, "h": 2.6},
-  "bottom_exchangePayback": {"x": 63.02, "y": 90.49, "w": 4, "h": 2.6}
+  "top_date": {
+    "x": 10.03,
+    "y": 5.87,
+    "w": 16,
+    "h": 1.45
+  },
+  "bottom_date": {
+    "x": 10.77,
+    "y": 55.17,
+    "w": 16,
+    "h": 1.45
+  },
+  "top_employeeName": {
+    "x": 44.09,
+    "y": 6.1,
+    "w": 27,
+    "h": 1.45
+  },
+  "bottom_employeeName": {
+    "x": 43.12,
+    "y": 55.1,
+    "w": 27,
+    "h": 1.45
+  },
+  "top_rank": {
+    "x": 74.03,
+    "y": 6,
+    "w": 15,
+    "h": 1.45
+  },
+  "bottom_rank": {
+    "x": 71.4,
+    "y": 55,
+    "w": 15,
+    "h": 1.45
+  },
+  "top_authorizedCheck": {
+    "x": 33.43,
+    "y": 7.8,
+    "w": 3,
+    "h": 1.7
+  },
+  "bottom_authorizedCheck": {
+    "x": 33.06,
+    "y": 56.91,
+    "w": 3,
+    "h": 1.7
+  },
+  "top_compCheck": {
+    "x": 53.55,
+    "y": 8.4,
+    "w": 3,
+    "h": 1.7
+  },
+  "bottom_compCheck": {
+    "x": 50.35,
+    "y": 56.92,
+    "w": 3,
+    "h": 1.7
+  },
+  "top_otherCheck": {
+    "x": 74.05,
+    "y": 8.23,
+    "w": 18,
+    "h": 1.7
+  },
+  "bottom_otherCheck": {
+    "x": 74.05,
+    "y": 58.38,
+    "w": 18,
+    "h": 1.7
+  },
+  "top_reason": {
+    "x": 22.29,
+    "y": 11.23,
+    "w": 82,
+    "h": 1.65
+  },
+  "bottom_reason": {
+    "x": 22.01,
+    "y": 60.27,
+    "w": 82,
+    "h": 1.65
+  },
+  "top_firstAbsentHour": {
+    "x": 5.29,
+    "y": 19.2,
+    "w": 9,
+    "h": 1.65
+  },
+  "bottom_firstAbsentHour": {
+    "x": 5.04,
+    "y": 68.3,
+    "w": 9,
+    "h": 1.65
+  },
+  "top_firstAbsentDate": {
+    "x": 15.22,
+    "y": 19.21,
+    "w": 10,
+    "h": 1.65
+  },
+  "bottom_firstAbsentDate": {
+    "x": 14.57,
+    "y": 68.28,
+    "w": 10,
+    "h": 1.65
+  },
+  "top_lastAbsentHour": {
+    "x": 24.94,
+    "y": 19.21,
+    "w": 9,
+    "h": 1.65
+  },
+  "bottom_lastAbsentHour": {
+    "x": 24.88,
+    "y": 68.18,
+    "w": 9,
+    "h": 1.65
+  },
+  "top_lastAbsentDate": {
+    "x": 34.36,
+    "y": 19.27,
+    "w": 10,
+    "h": 1.65
+  },
+  "bottom_lastAbsentDate": {
+    "x": 34.15,
+    "y": 68.24,
+    "w": 10,
+    "h": 1.65
+  },
+  "top_nonWorkDaysIncluded": {
+    "x": 49.57,
+    "y": 19.29,
+    "w": 10,
+    "h": 1.65
+  },
+  "bottom_nonWorkDaysIncluded": {
+    "x": 49.57,
+    "y": 67.6,
+    "w": 10,
+    "h": 1.65
+  },
+  "top_workHoursAbsent": {
+    "x": 73.97,
+    "y": 18.85,
+    "w": 10,
+    "h": 1.65
+  },
+  "bottom_workHoursAbsent": {
+    "x": 73.42,
+    "y": 67.82,
+    "w": 10,
+    "h": 1.65
+  },
+  "top_replacementSignature": {
+    "x": 7.95,
+    "y": 24.69,
+    "w": 24,
+    "h": 3.4
+  },
+  "bottom_replacementSignature": {
+    "x": 8.05,
+    "y": 73.65,
+    "w": 24,
+    "h": 3.4
+  },
+  "top_replacementName": {
+    "x": 35.1,
+    "y": 25.91,
+    "w": 21,
+    "h": 1.65
+  },
+  "bottom_replacementName": {
+    "x": 34.4,
+    "y": 75.06,
+    "w": 21,
+    "h": 1.65
+  },
+  "top_personTakingLeaveSignature": {
+    "x": 8.68,
+    "y": 29.48,
+    "w": 24,
+    "h": 3.4
+  },
+  "bottom_personTakingLeaveSignature": {
+    "x": 8.41,
+    "y": 78.81,
+    "w": 24,
+    "h": 3.4
+  },
+  "top_personTakingLeaveName": {
+    "x": 35,
+    "y": 31.84,
+    "w": 21,
+    "h": 1.65
+  },
+  "bottom_personTakingLeaveName": {
+    "x": 34.91,
+    "y": 80.51,
+    "w": 21,
+    "h": 1.65
+  },
+  "top_supervisorName": {
+    "x": 14.97,
+    "y": 35.75,
+    "w": 20,
+    "h": 3.4
+  },
+  "bottom_supervisorName": {
+    "x": 15.13,
+    "y": 85.35,
+    "w": 20,
+    "h": 3.4
+  },
+  "top_firstExchange": {
+    "x": 64.24,
+    "y": 37.69,
+    "w": 4,
+    "h": 2.6
+  },
+  "bottom_firstExchange": {
+    "x": 63.19,
+    "y": 86.37,
+    "w": 4,
+    "h": 2.6
+  },
+  "top_exchangePayback": {
+    "x": 64.12,
+    "y": 41.67,
+    "w": 4,
+    "h": 2.6
+  },
+  "bottom_exchangePayback": {
+    "x": 63.02,
+    "y": 90.49,
+    "w": 4,
+    "h": 2.6
+  }
 };
 function defaultLayout(){return JSON.parse(JSON.stringify(BASE_LAYOUT));}
 function getLayout(){try{return {...defaultLayout(),...(JSON.parse(localStorage.getItem(ALIGN_KEY)||'{}'))}}catch(e){return defaultLayout()}}
