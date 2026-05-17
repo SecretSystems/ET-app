@@ -6,12 +6,21 @@
 <title>Exchange Time</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{margin:0;background:#f4f4f1;color:#111;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.app{max-width:980px;margin:auto;padding:14px 14px 80px}.top{position:sticky;top:0;z-index:10;background:rgba(244,244,241,.96);backdrop-filter:blur(8px);border-bottom:1px solid #ddd;padding:10px 0}.brand{font-size:25px;font-weight:900;margin:0}.sub,.muted{font-size:13px;color:#666}.row{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:14px;background:#111;color:#fff;padding:13px 16px;font-weight:800;min-height:48px;cursor:pointer}.btn.secondary{background:#fff;color:#111;border:1px solid #ccc}.btn.small{padding:8px 12px;min-height:38px;border-radius:10px;font-size:14px}.screen{display:none}.screen.active{display:block}.card{background:#fff;border:1px solid #ddd;border-radius:18px;padding:14px;margin:14px 0;box-shadow:0 1px 3px rgba(0,0,0,.04)}.grid{display:grid;grid-template-columns:1fr;gap:12px}.two{grid-template-columns:1fr 1fr}.field label{display:block;font-size:12px;font-weight:900;text-transform:uppercase;margin:0 0 5px;color:#333}.field input,.field select,.field textarea{width:100%;border:1px solid #bbb;border-radius:12px;background:#fff;padding:13px;min-height:48px}.field textarea{min-height:76px}.hide{display:none!important}.sig-wrap{border:1px solid #bbb;border-radius:14px;background:#fff;overflow:hidden}.sig-pad{display:block;width:100%;height:135px;touch-action:none;background:#fff}.sig-actions{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #ddd;padding:8px}.paper-wrap{overflow:auto;padding:10px;background:#ddd;border-radius:18px}.paper{width:816px;height:1054px;background:#fff;margin:auto;position:relative;border:1px solid #ccc;color:#111;font-family:Arial,Helvetica,sans-serif}.paper-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;z-index:0}.pv{position:absolute;z-index:2;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;line-height:1.1;white-space:nowrap;overflow:hidden;text-align:left}body.align-mode .pv{outline:2px dashed #f2c200;background:rgba(255,230,0,.22);cursor:grab;touch-action:none;overflow:visible}
-body.align-mode .pv.dragging{cursor:grabbing;outline:3px solid #2684ff;background:rgba(38,132,255,.18);z-index:20}
-body.align-mode .pv::after{content:attr(data-label);position:absolute;left:0;top:-18px;background:#2684ff;color:#fff;font-size:10px;padding:2px 4px;border-radius:4px;display:none;white-space:nowrap;font-family:Arial,sans-serif}
+body.align-mode .pv.dragging{cursor:grabbing;outline:3px solid #111;background:rgba(0,0,0,.08);z-index:20}
+body.align-mode .pv::after{content:attr(data-label);position:absolute;left:0;top:-18px;background:#111;color:#fff;font-size:10px;padding:2px 4px;border-radius:4px;display:none;white-space:nowrap;font-family:Arial,sans-serif}
 body.align-mode .pv:hover::after,body.align-mode .pv.dragging::after{display:block}.align-data{width:100%;min-height:180px;border:1px solid #bbb;border-radius:12px;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}.align-status{font-weight:800;margin:8px 0;color:#111}.pv.center{text-align:center}.pv.sig img{max-width:100%;max-height:38px;object-fit:contain;display:block;margin:auto}.checkmark{font-size:24px;font-weight:900;line-height:1}.pill{display:inline-flex;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:800}.green{background:#dcfce7;color:#166534}.yellow{background:#fef3c7;color:#9a6a00}.red{background:#fee2e2;color:#b00020}.list-item{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;border-top:1px solid #eee;padding:12px 0}.list-item:first-child{border-top:0}.sharebox{word-break:break-all;background:#f7f7f7;border:1px dashed #aaa;border-radius:12px;padding:10px;font-size:12px;margin-top:12px}.notice{font-size:13px;color:#555;line-height:1.35}
+.sig-title-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.inline-sign-btn{margin-left:auto}
+.btn.linkblue{background:#111!important;color:#fff!important;border:0!important;box-shadow:none!important;font-weight:900}.sig-actions{gap:8px;flex-wrap:wrap}.sig-actions .linkblue{margin-left:auto}
+
+body:not(.align-mode) #alignData{display:none!important}
+body:not(.align-mode) #alignStatus{display:none!important}
+body.align-mode #alignData{display:block}
+.signature-card h3{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.signature-card h3 .inline-sign-btn{margin-left:auto}
+
+
 @media(max-width:700px){.app{padding:10px}.two{grid-template-columns:1fr}.btn{width:100%}.row .btn{flex:1}.paper-wrap{margin-left:-10px;margin-right:-10px;border-radius:0}.sig-pad{height:125px}}
 @media print{body{background:white;-webkit-print-color-adjust:exact;print-color-adjust:exact}.no-print,.top,.card:not(.print-card){display:none!important}.app{max-width:none;padding:0}.print-card{display:block!important;border:0;margin:0;padding:0;box-shadow:none}.paper-wrap{overflow:visible;background:white;padding:0}.paper{width:8.5in;height:11in;border:0;margin:0;page-break-inside:avoid}.pv{font-size:10.5pt}.pv.sig img{max-height:.32in}@page{size:letter portrait;margin:0}html,body{width:8.5in;height:11in} }
-</style>
+.signing-link-card .btn{font-size:15px}.signing-link-card .sharebox{margin-top:12px}</style>
 </head>
 <body>
 <div class="app">
@@ -35,16 +44,35 @@ body.align-mode .pv:hover::after,body.align-mode .pv.dragging::after{display:blo
     <div class="field"><label>Last Absent Hour</label><input id="lastAbsentHour"></div>
     <div class="field"><label>Replacement Firefighter</label><input id="replacementName"></div>
     <div class="field"><label>Person Taking Leave</label><input id="personTakingLeaveName"></div>
-    <div class="field"><label>Supervisor Signature</label><div class="notice">Supervisor signs below. This line is not a typed name.</div></div>
     <div class="field"><label>Exchange Type</label><select id="exchangeKind"><option value="first">First Exchange</option><option value="payback">Exchange Payback</option></select></div>
   </div></div>
 
-  <div class="card no-print"><h3>Replacement Signature</h3><div class="sig-wrap"><canvas id="sigReplacement" class="sig-pad"></canvas><div class="sig-actions"><span class="muted">Sign with finger/mouse</span><button class="btn small secondary" onclick="clearSig('replacement')">Clear</button></div></div><h3>Person Taking Leave Signature</h3><div class="sig-wrap"><canvas id="sigLeave" class="sig-pad"></canvas><div class="sig-actions"><span class="muted">Sign with finger/mouse</span><button class="btn small secondary" onclick="clearSig('leave')">Clear</button></div></div><h3>Supervisor Signature</h3><div class="sig-wrap"><canvas id="sigSupervisor" class="sig-pad"></canvas><div class="sig-actions"><span class="muted">Supervisor signs here</span><button class="btn small secondary" onclick="clearSig('supervisor')">Clear</button></div></div></div>
-  <div class="card no-print"><div class="row"><button class="btn" onclick="saveExchange()">Save</button><button class="btn secondary" onclick="makeLink()">Create Signing Link</button><button class="btn secondary" onclick="printExact()">Print / Save PDF</button></div><div id="linkBox" class="sharebox hide"></div></div>
-  <div class="card no-print"><h3>Alignment Mode</h3><p class="notice">Turn this on, then click/hold a yellow field and drag it. Top and bottom copies move independently. Copy the JSON below and send it to me.</p><div class="row"><button class="btn secondary" onclick="toggleAlign()">Toggle Drag Mode</button><button class="btn secondary" onclick="copyAlignData()">Copy Alignment Data</button><button class="btn secondary" onclick="resetAlignment()">Reset Alignment</button></div><div id="alignStatus" class="align-status">Drag mode off.</div><textarea id="alignData" class="align-data" readonly></textarea></div>
-  <div class="card print-card"><div class="paper-wrap"><div id="paper" class="paper"></div></div></div></section>
+  <div class="card no-print signature-card" id="signatureCard">
+    
+    <h3 style="margin-top:0">1. Person Taking Leave Signature</h3>
+    <div class="sig-wrap">
+      <canvas id="sigLeave" class="sig-pad"></canvas>
+      <div class="sig-actions"><span class="muted">Person taking leave signs here</span><button class="btn small secondary" onclick="clearSig('leave')">Clear</button></div>
+    </div>
 
-  <section id="sign" class="screen"><div class="card no-print"><h2>Sign Exchange</h2><p class="notice">Prototype only: this device can sign and print, but it will not sync back until Supabase is added.</p><div class="sig-wrap"><canvas id="sigRemote" class="sig-pad"></canvas><div class="sig-actions"><span class="muted">Remote signer</span><button class="btn small secondary" onclick="clearSig('remote')">Clear</button></div></div><div class="row" style="margin-top:12px"><button class="btn" onclick="acceptRemoteSig()">Add Signature</button><button class="btn secondary" onclick="printExact()">Print / Save PDF</button></div></div><div class="card print-card"><div class="paper-wrap"><div id="signPaper" class="paper"></div></div></div></section>
+    <h3>2. Replacement Signature</h3>
+    <div class="sig-wrap">
+      <canvas id="sigReplacement" class="sig-pad"></canvas>
+      <div class="sig-actions"><span class="muted">Replacement signs here</span><button class="btn small secondary" onclick="clearSig('replacement')">Clear</button><button class="btn small linkblue" onclick="makeLink('replacement')">Create Replacement Signature Link</button></div>
+    </div>
+
+    <h3>3. </h3>
+    <div class="sig-wrap">
+      <canvas id="sigSupervisor" class="sig-pad"></canvas>
+      <div class="sig-actions"><span class="muted">Supervisor signs here</span><button class="btn small secondary" onclick="clearSig('supervisor')">Clear</button><button class="btn small linkblue" onclick="makeLink('supervisor')">Create Supervisor Signature Link</button></div>
+    </div>
+  </div>
+  <div class="card no-print"><div class="row"><button class="btn" onclick="saveExchange()">Save</button><button class="btn secondary" onclick="printExact()">Print / Save PDF</button></div><div id="linkBox" class="sharebox hide"></div></div>
+  <div class="card print-card"><div class="paper-wrap"><div id="paper" class="paper"></div></div></div>
+  <div class="card no-print"><div class="row"><button class="btn secondary" onclick="document.getElementById('alignmentCard').classList.toggle('hide')">Advanced Settings</button></div></div><div class="card no-print hide" id="alignmentCard"><h3>Alignment Mode</h3><div class="row"><button class="btn secondary" onclick="toggleAlign()">Toggle Drag Mode</button><button class="btn secondary" onclick="copyAlignData()">Copy Alignment Data</button><button class="btn secondary" onclick="resetAlignment()">Reset Alignment</button></div><div id="alignStatus" class="align-status" style="display:none">Drag mode off.</div><textarea id="alignData" class="align-data" style="display:none" readonly></textarea></div>
+</section>
+
+  <section id="sign" class="screen"><div class="card no-print"><h2 id="signTitle">Sign Exchange</h2><p class="notice" id="signNotice">Prototype only: this device can sign and print, but it will not sync back until Supabase is added.</p><div class="sig-wrap"><canvas id="sigRemote" class="sig-pad"></canvas><div class="sig-actions"><span class="muted" id="remoteSignerLabel">Remote signer</span><button class="btn small secondary" onclick="clearSig('remote')">Clear</button></div></div><div class="row" style="margin-top:12px"><button class="btn" onclick="acceptRemoteSig()">Add Signature</button><button class="btn secondary" onclick="printExact()">Print / Save PDF</button></div></div><div class="card print-card"><div class="paper-wrap"><div id="signPaper" class="paper"></div></div></div></section>
 
   <section id="balance" class="screen no-print"><div class="card"><h2>Balance Tracker</h2><div id="balanceList"></div></div></section>
 </div>
@@ -64,7 +92,26 @@ function saveExchange(){let o=dataFromInputs();current=o;let all=getAll().filter
 function openEx(id){let o=getAll().find(x=>x.id===id);if(!o)return;current=o;fields.forEach(f=>{if($(f))$(f).value=o[f]||''});updateLeaveUI();if($('employeeName')&&$('personTakingLeaveName')&&!$('personTakingLeaveName').value)$('personTakingLeaveName').value=$('employeeName').value;show('form');updatePreview()}
 function renderList(){let all=getAll();$('exchangeList').innerHTML=all.length?all.map(o=>`<div class="list-item"><div><b>${esc(o.employeeName||'No name')}</b><div class="muted">${esc(o.replacementName||'No replacement')} • ${esc(o.workHoursAbsent||'0')} hrs • Due ${esc(o.dueDate||'')}</div></div><div>${badge(o.dueDate||today())}<br><button class="btn small secondary" onclick="openEx('${o.id}')">Open</button></div></div>`).join(''):'<p class="muted">No saved exchanges yet.</p>'}
 function renderBalance(){let all=getAll(),map={};all.forEach(o=>{let k=(o.owedBy||'Unknown')+' → '+(o.owedTo||'Unknown');map[k]=map[k]||{hrs:0,due:o.dueDate};map[k].hrs+=Number(o.workHoursAbsent||0);if((o.dueDate||'')<map[k].due)map[k].due=o.dueDate});$('balanceList').innerHTML=Object.keys(map).length?Object.entries(map).map(([k,v])=>`<div class="list-item"><div><b>${esc(k)}</b><div class="muted">${v.hrs} total hours • next due ${v.due}</div></div>${badge(v.due)}</div>`).join(''):'<p class="muted">No balances yet.</p>'}
-function makeLink(){let o=dataFromInputs();let payload=btoa(unescape(encodeURIComponent(JSON.stringify({...o,replacementSignature:'',personTakingLeaveSignature:'',supervisorSignature:''}))));let url=location.href.split('#')[0]+'#sign='+payload;$('linkBox').classList.remove('hide');$('linkBox').innerHTML=`${url}<br><br><button class="btn small" onclick="navigator.clipboard.writeText('${url}')">Copy Link</button> <button class="btn small secondary" onclick="shareLink('${url}')">Share</button>`}
+function safeAttr(str){return String(str).replace(/&/g,'&amp;').replace(/'/g,'&#39;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function makeLink(role='replacement'){
+  let o=dataFromInputs();
+  if(!o.employeeName){alert('Fill out Employee Requesting Leave first.');return;}
+  let clean={...o,signRole:role,readonly:true};
+  if(role==='replacement')clean.replacementSignature='';
+  if(role==='supervisor')clean.supervisorSignature='';
+  let payload=btoa(unescape(encodeURIComponent(JSON.stringify(clean))));
+  let url=location.href.split('#')[0]+'#sign='+payload;
+  let title=role==='supervisor'?' Link':'Replacement Signature Link';
+  let note=role==='supervisor'
+    ? 'Read-only ET form. Supervisor can only sign the supervisor signature line.'
+    : 'Read-only ET form. Replacement can only sign the replacement signature line.';
+  let boxId=role==='supervisor'?'supervisorLinkBox':'replacementLinkBox';
+  let box=$(boxId)||$('linkBox');
+  if(box){
+    box.classList.remove('hide');
+    box.innerHTML=`<b>${title}</b><br><span class="notice">${note}</span><br><br>${url}<br><br><button class="btn small" onclick="navigator.clipboard.writeText('${safeAttr(url)}')">Copy ${role==='supervisor'?'Supervisor':'Replacement'} Link</button> <button class="btn small secondary" onclick="shareLink('${safeAttr(url)}')">Share</button>`;
+  }
+}
 function shareLink(url){if(navigator.share)navigator.share({title:'Exchange Time Form',url});else navigator.clipboard.writeText(url)}function printExact(){updatePreview();setTimeout(()=>window.print(),100)}
 
 const ALIGN_KEY='et_layout_exact_final_v3';
@@ -108,7 +155,7 @@ const BASE_LAYOUT={
   "top_firstExchange": {"x": 64.24, "y": 37.69, "w": 4, "h": 2.6},
   "bottom_firstExchange": {"x": 63.22, "y": 86.63, "w": 4, "h": 2.6},
   "top_exchangePayback": {"x": 63.91, "y": 41.46, "w": 4, "h": 2.6},
-  "bottom_exchangePayback": {"x": 63.91, "y": 91.61, "w": 4, "h": 2.6}
+  "bottom_exchangePayback": {"x": 63.02, "y": 90.49, "w": 4, "h": 2.6}
 };
 function defaultLayout(){return JSON.parse(JSON.stringify(BASE_LAYOUT));}
 function getLayout(){try{return {...defaultLayout(),...(JSON.parse(localStorage.getItem(ALIGN_KEY)||'{}'))}}catch(e){return defaultLayout()}}
@@ -141,7 +188,14 @@ return cells;}
 function exactPage(o){return `<img class="paper-bg" src="${FORM_BG}" alt=""><div>${renderCopy('top',o)}${renderCopy('bottom',o)}</div>`}
 function fmtDate(d){if(!d)return '';let [y,m,day]=String(d).split('-');return m&&day?`${m}/${day}/${String(y).slice(2)}`:d}
 let dragging=null;
-function toggleAlign(){document.body.classList.toggle('align-mode');$('alignStatus').textContent=document.body.classList.contains('align-mode')?'Drag mode ON. Move top and bottom fields separately.':'Drag mode off.';exportAlignData();}
+function toggleAlign(){
+  const on=document.body.classList.toggle('align-mode');
+  const status=$('alignStatus');
+  const data=$('alignData');
+  if(status){status.style.display=on?'block':'none';status.textContent=on?'Drag mode ON. Move top and bottom fields separately.':'Drag mode off.';}
+  if(data){data.style.display=on?'block':'none';}
+  if(on) exportAlignData();
+}
 function exportAlignData(){let box=$('alignData');if(box)box.value=JSON.stringify(getLayout(),null,2);}
 function copyAlignData(){exportAlignData();let text=$('alignData').value;navigator.clipboard?.writeText(text);$('alignStatus').textContent='Alignment data copied.';}
 function resetAlignment(){localStorage.removeItem(ALIGN_KEY);updatePreview();exportAlignData();$('alignStatus').textContent='Alignment reset to default.';}
@@ -149,7 +203,32 @@ function attachDragHandlers(){let paper=$('paper');if(!paper)return;paper.onpoin
 document.addEventListener('pointermove',function(e){if(!dragging)return;e.preventDefault();let nx=dragging.startLeft+(e.clientX-dragging.startX),ny=dragging.startTop+(e.clientY-dragging.startY);let x=Number(((nx/dragging.paper.width)*100).toFixed(2));let y=Number(((ny/dragging.paper.height)*100).toFixed(2));let l=getLayout();l[dragging.key]={...(l[dragging.key]||defaultLayout()[dragging.key]),x,y};dragging.el.style.left=x+'%';dragging.el.style.top=y+'%';saveLayout(l);$('alignStatus').textContent=`Last moved: ${dragging.key}  x:${x}  y:${y}`;});
 document.addEventListener('pointerup',function(){if(dragging?.el)dragging.el.classList.remove('dragging');dragging=null;});
 function updatePreview(){if(!$('paper'))return;let o=dataFromInputs();$('paper').innerHTML=exactPage(o);if($('signPaper'))$('signPaper').innerHTML=exactPage(o);attachDragHandlers();exportAlignData()}
-function loadSign(){let h=location.hash;if(!h.startsWith('#sign='))return;try{current=JSON.parse(decodeURIComponent(escape(atob(h.slice(6)))));show('sign');updatePreview()}catch(e){alert('Bad signing link')}}function acceptRemoteSig(){if(!current)return;current.replacementSignature=canvases.sigRemote.data();updatePreview();alert('Signature added on this device. Print or save PDF now. Real sync requires backend.')}
+function loadSign(){
+  let h=location.hash;
+  if(!h.startsWith('#sign='))return;
+  try{
+    current=JSON.parse(decodeURIComponent(escape(atob(h.slice(6)))));
+    let role=current.signRole||'replacement';
+    let title=role==='supervisor'?' Only':'Replacement Signature Only';
+    if($('signTitle'))$('signTitle').textContent=title;
+    if($('remoteSignerLabel'))$('remoteSignerLabel').textContent=title;
+    if($('signNotice'))$('signNotice').textContent=role==='supervisor'
+      ? 'Read-only ET form. You can only add the supervisor signature. No other fields can be edited from this link.'
+      : 'Read-only ET form. You can only add the replacement signature. No other fields can be edited from this link.';
+    show('sign');
+    updatePreview();
+  }catch(e){alert('Bad signing link')}
+}
+function acceptRemoteSig(){
+  if(!current)return;
+  let role=current.signRole||'replacement';
+  let sigData=canvases.sigRemote.data();
+  if(!sigData){alert('Please sign first.');return;}
+  if(role==='supervisor')current.supervisorSignature=sigData;
+  else current.replacementSignature=sigData;
+  updatePreview();
+  alert((role==='supervisor'?'Supervisor':'Replacement')+' signature added on this device. Print or save PDF now. Real sync requires backend.');
+}
 fields.forEach(f=>setTimeout(()=>{if($(f)){$(f).addEventListener('input',()=>{if(f==='employeeName'&&$('personTakingLeaveName'))$('personTakingLeaveName').value=$('employeeName').value;updatePreview()});$(f).addEventListener('change',()=>{if(f==='employeeName'&&$('personTakingLeaveName'))$('personTakingLeaveName').value=$('employeeName').value;if(['leaveType','workHoursAbsent','shiftType','firstAbsentDate','date'].includes(f))applyShiftAuto();else updatePreview()})}},0));['sigReplacement','sigLeave','sigSupervisor','sigRemote'].forEach(id=>initSig(id));newExchange();show('dash');loadSign();exportAlignData();
 </script>
 </body>
