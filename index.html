@@ -12,8 +12,8 @@
 </head>
 <body>
 <div class="app">
-  <div class="top no-print"><h1 class="brand">Exchange Time</h1><div class="sub">One-file GitHub prototype.</div><div class="row" style="margin-top:10px"><button class="btn small" onclick="show('dash')">Dashboard</button><button class="btn small secondary" onclick="newExchange()">New</button><button class="btn small secondary" onclick="show('balance')">Balance</button></div></div>
-  <section id="dash" class="screen active no-print"><div class="card"><button class="btn" onclick="newExchange()">+ New Exchange</button><p class="notice">This saves on this device and syncs to Supabase when connected.</p></div><div class="card"><h2>Saved Exchanges</h2><div id="exchangeList"></div></div></section>
+  <div class="top no-print"><h1 class="brand">Exchange Time</h1><div class="sub">One-file GitHub prototype.</div><div class="row" style="margin-top:10px"><button type="button" class="btn small" onclick="show('dash')">Dashboard</button><button type="button" class="btn small secondary" onclick="newExchange()">New</button><button type="button" class="btn small secondary" onclick="show('balance')">Balance</button></div></div>
+  <section id="dash" class="screen active no-print"><div class="card"><button type="button" class="btn" onclick="newExchange()">+ New Exchange</button><p class="notice">This saves on this device and syncs to Supabase when connected.</p></div><div class="card"><h2>Saved Exchanges</h2><div id="exchangeList"></div></div></section>
   <section id="form" class="screen"><div class="card no-print"><h2>Exchange Form</h2><div class="grid two">
     <div class="field"><label>Date</label><input id="date" type="date"></div>
     <div class="field"><label>Employee Requesting Leave</label><input id="employeeName" autocomplete="name"></div>
@@ -34,40 +34,34 @@
     <div class="field"><label>Exchange Type</label><select id="exchangeKind"><option value="first">First Exchange</option><option value="payback">Exchange Payback</option></select></div>
   </div></div>
   <div class="card no-print">
-    <div class="sig-title"><h3>Person Taking Leave Signature</h3></div><div class="sig-wrap"><canvas id="sigLeave" class="sig-pad"></canvas><div class="sig-actions"><span class="muted">Sign with finger/mouse</span><button class="btn small secondary" onclick="clearSig('leave')">Clear</button></div></div>
-    <div class="sig-title"><h3>Replacement Signature</h3><button class="btn small linkblue" onclick="makeRoleLink('replacement')">Create Replacement Signature Link</button></div><div class="sig-wrap"><canvas id="sigReplacement" class="sig-pad"></canvas><div class="sig-actions"><span class="muted">Sign with finger/mouse</span><button class="btn small secondary" onclick="clearSig('replacement')">Clear</button></div></div><div id="replacementLinkBox" class="sharebox hide"></div>
-    <div class="sig-title"><h3>Supervisor Signature</h3><button class="btn small linkblue" onclick="makeRoleLink('supervisor')">Create Supervisor Signature Link</button></div><div class="sig-wrap"><canvas id="sigSupervisor" class="sig-pad"></canvas><div class="sig-actions"><span class="muted">Sign with finger/mouse</span><button class="btn small secondary" onclick="clearSig('supervisor')">Clear</button></div></div><div id="supervisorLinkBox" class="sharebox hide"></div>
+    <div class="sig-title"><h3>Person Taking Leave Signature</h3></div><div class="sig-wrap"><canvas id="sigLeave" class="sig-pad"></canvas><div class="sig-actions"><span class="muted">Sign with finger/mouse</span><button type="button" class="btn small secondary" onclick="clearSig('leave')">Clear</button></div></div>
+    <div class="sig-title"><h3>Replacement Signature</h3><button type="button" class="btn small linkblue" onclick="makeRoleLink('replacement')">Create Replacement Signature Link</button></div><div class="sig-wrap"><canvas id="sigReplacement" class="sig-pad"></canvas><div class="sig-actions"><span class="muted">Sign with finger/mouse</span><button type="button" class="btn small secondary" onclick="clearSig('replacement')">Clear</button></div></div><div id="replacementLinkBox" class="sharebox hide"></div>
+    <div class="sig-title"><h3>Supervisor Signature</h3><button type="button" class="btn small linkblue" onclick="makeRoleLink('supervisor')">Create Supervisor Signature Link</button></div><div class="sig-wrap"><canvas id="sigSupervisor" class="sig-pad"></canvas><div class="sig-actions"><span class="muted">Sign with finger/mouse</span><button type="button" class="btn small secondary" onclick="clearSig('supervisor')">Clear</button></div></div><div id="supervisorLinkBox" class="sharebox hide"></div>
   </div>
-  <div class="card no-print"><div class="row"><button class="btn" onclick="saveExchange()">Save</button><button class="btn secondary" onclick="printExact()">Print / Save PDF</button></div><div id="linkBox" class="sharebox hide"></div></div>
+  <div class="card no-print"><div class="row"><button type="button" class="btn" onclick="saveExchange()">Save</button><button type="button" class="btn secondary" onclick="printExact()">Print / Save PDF</button></div><div id="linkBox" class="sharebox hide"></div></div>
   <div class="card print-card"><div class="paper-wrap"><div id="paper" class="paper"></div></div></div>
-  <div class="card no-print" id="alignCard"><h3>Alignment Mode</h3><div class="align-toolbar"><button class="btn small secondary" onclick="toggleDragMode()">Toggle Drag Mode</button><button class="btn small secondary" onclick="copyAlignmentData()">Copy Alignment Data</button><button class="btn small secondary" onclick="resetAlignment()">Reset Default Alignment</button></div><div id="alignPanel" class="hide" style="margin-top:10px"><p class="notice">Drag fields on the form. Copy this data and send it back for permanent placement.</p><textarea id="alignData" readonly></textarea></div></div>
+  <div class="card no-print" id="alignCard"><h3>Alignment Mode</h3><div class="align-toolbar"><button type="button" class="btn small secondary" onclick="toggleDragMode()">Toggle Drag Mode</button><button type="button" class="btn small secondary" onclick="copyAlignmentData()">Copy Alignment Data</button><button type="button" class="btn small secondary" onclick="resetAlignment()">Reset Default Alignment</button></div><div id="alignPanel" class="hide" style="margin-top:10px"><p class="notice">Drag fields on the form. Copy this data and send it back for permanent placement.</p><textarea id="alignData" readonly></textarea></div></div>
   </section>
-  <section id="sign" class="screen"><div class="card no-print"><h2 id="signTitle">Sign Exchange</h2><p id="signNotice" class="notice">Read-only signing view.</p><div class="sig-wrap"><canvas id="sigRemote" class="sig-pad"></canvas><div class="sig-actions"><span id="remoteSignerLabel" class="muted">Remote signer</span><button class="btn small secondary" onclick="clearSig('remote')">Clear</button></div></div><div class="row" style="margin-top:12px"><button class="btn" onclick="acceptRemoteSig()">Add Signature</button><button class="btn secondary" onclick="printExact()">Print / Save PDF</button></div></div><div class="card print-card"><div class="paper-wrap"><div id="signPaper" class="paper"></div></div></div></section>
+  <section id="sign" class="screen"><div class="card no-print"><h2 id="signTitle">Sign Exchange</h2><p id="signNotice" class="notice">Read-only signing view.</p><div class="sig-wrap"><canvas id="sigRemote" class="sig-pad"></canvas><div class="sig-actions"><span id="remoteSignerLabel" class="muted">Remote signer</span><button type="button" class="btn small secondary" onclick="clearSig('remote')">Clear</button></div></div><div class="row" style="margin-top:12px"><button type="button" class="btn" onclick="acceptRemoteSig()">Add Signature</button><button type="button" class="btn secondary" onclick="printExact()">Print / Save PDF</button></div></div><div class="card print-card"><div class="paper-wrap"><div id="signPaper" class="paper"></div></div></div></section>
   <section id="balance" class="screen no-print"><div class="card"><h2>Balance Tracker</h2><div id="balanceList"></div></div></section>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const FORM_BG='';
-
-const $=id=>document.getElementById(id);let current=null, printTwo=false;const fields=['date','rank','employeeName','leaveType','otherDescription','workHoursAbsent','reason','nonWorkDaysIncluded','firstAbsentHour','firstAbsentDate','lastAbsentHour','lastAbsentDate','replacementName','personTakingLeaveName','supervisorName','exchangeKind'];const canvases={};
-
 const SUPABASE_URL='https://hoeqgslihicnhgpbynah.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_54kZ2QaMqq5FA_0by3qMwQ_4ShwsK3K';
 const supabaseClient=(window.supabase&&SUPABASE_URL&&SUPABASE_PUBLISHABLE_KEY)?window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY):null;
-
 function getDeviceId(){
   let id=localStorage.getItem('exchange_time_device_id');
   if(!id){
-    id=crypto.randomUUID();
+    id=(crypto&&crypto.randomUUID)?crypto.randomUUID():String(Date.now())+'-'+Math.random().toString(16).slice(2);
     localStorage.setItem('exchange_time_device_id',id);
   }
   return id;
 }
-
 async function saveExchangeToSupabase(o){
   if(!supabaseClient)throw new Error('Supabase client not loaded');
   const deviceId=getDeviceId();
-
   const exchangePayload={
     id:o.id,
     employee_name:o.employeeName||null,
@@ -77,36 +71,23 @@ async function saveExchangeToSupabase(o){
     reason:o.reason||null,
     employee_signature:o.personTakingLeaveSignature||null,
     supervisor_signature:o.supervisorSignature||null,
-    device_id:deviceId
+    device_id:deviceId,
+    due_date:o.dueDate||null,
+    status:o.status||'pending'
   };
-
-  const {error:exchangeError}=await supabaseClient
-    .from('exchange_requests')
-    .upsert(exchangePayload,{onConflict:'id'});
-
+  const {error:exchangeError}=await supabaseClient.from('exchange_requests').upsert(exchangePayload,{onConflict:'id'});
   if(exchangeError)throw exchangeError;
-
   const balancePayload={
     exchange_request_id:o.id,
-    owed_by_name:o.owedBy||null,
-    owed_to_name:o.owedTo||null,
     hours_owed:o.workHoursAbsent?Number(o.workHoursAbsent):null,
     exchange_date:o.date||null,
     due_date:o.dueDate||null,
-    status:o.status||'Active',
-    device_id:deviceId
+    status:o.status||'pending'
   };
-
-  const {error:balanceError}=await supabaseClient
-    .from('time_balances')
-    .insert(balancePayload);
-
+  const {error:balanceError}=await supabaseClient.from('time_balances').insert(balancePayload);
   if(balanceError)console.warn('Balance cloud save skipped:',balanceError.message);
 }
 
-function today(){return new Date().toISOString().slice(0,10)}function addMonths(d,m){let x=new Date(d+'T12:00:00');x.setMonth(x.getMonth()+m);return x.toISOString().slice(0,10)}function daysLeft(d){return Math.ceil((new Date(d)-new Date())/86400000)}function badge(d){let n=daysLeft(d);if(n<14)return `<span class="pill red">${n<0?'Expired':n+' days left'}</span>`;if(n<=30)return `<span class="pill yellow">${n} days left</span>`;return `<span class="pill green">${n} days left</span>`}function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');if(id==='dash')renderList();if(id==='balance')renderBalance();}
-function getAll(){return JSON.parse(localStorage.et_exchanges||'[]')}function setAll(a){localStorage.et_exchanges=JSON.stringify(a)}function profile(){return JSON.parse(localStorage.et_profile||'{}')}function saveProfile(o){localStorage.et_profile=JSON.stringify({...profile(),...o})}
-function initSig(id){let c=$(id),ctx=c.getContext('2d'),draw=false,last=null;function resize(){let img=c.toDataURL();c.width=c.offsetWidth*devicePixelRatio;c.height=c.offsetHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);ctx.lineCap='round';
 const BASE_LAYOUT={"top_date":{"x":10.58,"y":5.57,"w":16,"h":1.45},"bottom_date":{"x":10.37,"y":54.97,"w":16,"h":1.45},"top_employeeName":{"x":44.09,"y":6.1,"w":27,"h":1.45},"bottom_employeeName":{"x":43.12,"y":55.1,"w":27,"h":1.45},"top_rank":{"x":74.03,"y":6,"w":15,"h":1.45},"bottom_rank":{"x":71.4,"y":55,"w":15,"h":1.45},"top_authorizedCheck":{"x":33.43,"y":7.8,"w":3,"h":1.7},"bottom_authorizedCheck":{"x":33.06,"y":56.91,"w":3,"h":1.7},"top_compCheck":{"x":53.55,"y":8.4,"w":3,"h":1.7},"bottom_compCheck":{"x":50.35,"y":56.92,"w":3,"h":1.7},"top_otherCheck":{"x":73.99,"y":8.56,"w":18,"h":1.7},"bottom_otherCheck":{"x":70.56,"y":57.51,"w":18,"h":1.7},"top_reason":{"x":22.29,"y":11.23,"w":82,"h":1.65},"bottom_reason":{"x":22.01,"y":60.27,"w":82,"h":1.65},"top_firstAbsentHour":{"x":5.29,"y":19.2,"w":9,"h":1.65},"bottom_firstAbsentHour":{"x":5.04,"y":68.3,"w":9,"h":1.65},"top_firstAbsentDate":{"x":15.22,"y":19.21,"w":10,"h":1.65},"bottom_firstAbsentDate":{"x":14.57,"y":68.28,"w":10,"h":1.65},"top_lastAbsentHour":{"x":24.94,"y":19.21,"w":9,"h":1.65},"bottom_lastAbsentHour":{"x":24.88,"y":68.18,"w":9,"h":1.65},"top_lastAbsentDate":{"x":34.36,"y":19.27,"w":10,"h":1.65},"bottom_lastAbsentDate":{"x":34.15,"y":68.24,"w":10,"h":1.65},"top_nonWorkDaysIncluded":{"x":49.57,"y":19.29,"w":10,"h":1.65},"bottom_nonWorkDaysIncluded":{"x":49.57,"y":67.6,"w":10,"h":1.65},"top_workHoursAbsent":{"x":73.97,"y":18.85,"w":10,"h":1.65},"bottom_workHoursAbsent":{"x":73.42,"y":67.82,"w":10,"h":1.65},"top_replacementSignature":{"x":7.95,"y":24.69,"w":24,"h":3.4},"bottom_replacementSignature":{"x":8.05,"y":73.65,"w":24,"h":3.4},"top_replacementName":{"x":35.1,"y":25.91,"w":21,"h":1.65},"bottom_replacementName":{"x":34.4,"y":75.06,"w":21,"h":1.65},"top_personTakingLeaveSignature":{"x":8.68,"y":29.48,"w":24,"h":3.4},"bottom_personTakingLeaveSignature":{"x":7.04,"y":78.5,"w":24,"h":3.4},"top_personTakingLeaveName":{"x":35,"y":31.84,"w":21,"h":1.65},"bottom_personTakingLeaveName":{"x":34.91,"y":80.51,"w":21,"h":1.65},"top_supervisorName":{"x":14.97,"y":36.02,"w":24,"h":3.4},"bottom_supervisorName":{"x":15.13,"y":85.72,"w":24,"h":3.4},"top_firstExchange":{"x":64.24,"y":37.69,"w":4,"h":2.6},"bottom_firstExchange":{"x":63.19,"y":86.37,"w":4,"h":2.6},"top_exchangePayback":{"x":64.12,"y":41.67,"w":4,"h":2.6},"bottom_exchangePayback":{"x":63.02,"y":90.49,"w":4,"h":2.6}};
 const ALIGN_KEY='et_layout_2026_05_18_v6';
 const $=id=>document.getElementById(id);
@@ -128,7 +109,8 @@ function profile(){try{return JSON.parse(localStorage.et_profile||'{}')}catch(e)
 function saveProfile(o){localStorage.et_profile=JSON.stringify({...profile(),...o})}
 function layout(){try{return {...BASE_LAYOUT,...JSON.parse(localStorage.getItem(ALIGN_KEY)||'{}')}}catch(e){return {...BASE_LAYOUT}}}
 function setLayout(l){localStorage.setItem(ALIGN_KEY,JSON.stringify(l));exportAlignment();updatePreview()}
-function initSig(id){let c=$(id);if(!c)return;let ctx=c.getContext('2d'),draw=false,last=null;function resize(){let old=c.toDataURL();let w=c.offsetWidth||300,h=c.offsetHeight||130;c.width=w*devicePixelRatio;c.height=h*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);ctx.lineCap='round';ctx.lineJoin='round';ctx.lineWidth=2.2;ctx.strokeStyle='#111';if(old&&old.length>1000){let img=new Image();img.onload=()=>ctx.drawImage(img,0,0,w,h);img.src=old}}resize();if(window.ResizeObserver)new ResizeObserver(resize).observe(c);function pos(e){let r=c.getBoundingClientRect(),p=e.touches?e.touches[0]:e;return{x:p.clientX-r.left,y:p.clientY-r.top}}function start(e){e.preventDefault();draw=true;last=pos(e)}function move(e){if(!draw)return;e.preventDefault();let p=pos(e);ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();last=p;updatePreview()}function end(){if(draw)updatePreview();draw=false}c.addEventListener('mousedown',start);c.addEventListener('mousemove',move);window.addEventListener('mouseup',end);c.addEventListener('touchstart',start,{passive:false});c.addEventListener('touchmove',move,{passive:false});c.addEventListener('touchend',end);canvases[id]={c,ctx,clear(){ctx.clearRect(0,0,c.width,c.height)},data(){try{let blank=document.createElement('canvas');blank.width=c.width;blank.height=c.height;return c.toDataURL()===blank.toDataURL()?'':c.toDataURL('image/png')}catch(e){return''}},set(src){if(!src)return;let img=new Image();img.onload=()=>{ctx.clearRect(0,0,c.width,c.height);ctx.drawImage(img,0,0,c.offsetWidth,c.offsetHeight)};img.src=src}}
+function initSig(id){let c=$(id);if(!c)return;let ctx=c.getContext('2d'),draw=false,last=null;function resize(){let old=c.toDataURL();let w=c.offsetWidth||300,h=c.offsetHeight||130;c.width=w*devicePixelRatio;c.height=h*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);ctx.lineCap='round';ctx.lineJoin='round';ctx.lineWidth=2.2;ctx.strokeStyle='#111';if(old&&old.length>1000){let img=new Image();img.onload=()=>ctx.drawImage(img,0,0,w,h);img.src=old}}resize();if(window.ResizeObserver)new ResizeObserver(resize).observe(c);function pos(e){let r=c.getBoundingClientRect(),p=e.touches?e.touches[0]:e;return{x:p.clientX-r.left,y:p.clientY-r.top}}function start(e){e.preventDefault();draw=true;last=pos(e)}function move(e){if(!draw)return;e.preventDefault();let p=pos(e);ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();last=p;updatePreview()}function end(){if(draw)updatePreview();draw=false}c.addEventListener('mousedown',start);c.addEventListener('mousemove',move);window.addEventListener('mouseup',end);c.addEventListener('touchstart',start,{passive:false});c.addEventListener('touchmove',move,{passive:false});c.addEventListener('touchend',end);canvases[id]={c,ctx,clear(){ctx.clearRect(0,0,c.width,c.height)},data(){try{let blank=document.createElement('canvas');blank.width=c.width;blank.height=c.height;return c.toDataURL()===blank.toDataURL()?'':c.toDataURL('image/png')}catch(e){return''}},set(src){if(!src)return;let img=new Image();img.onload=()=>{ctx.clearRect(0,0,c.width,c.height);ctx.drawImage(img,0,0,c.offsetWidth,c.offsetHeight)};img.src=src}};
+}
 function clearSig(which){let id=which==='replacement'?'sigReplacement':which==='leave'?'sigLeave':which==='supervisor'?'sigSupervisor':'sigRemote';canvases[id]?.clear();updatePreview()}
 function updateLeaveUI(){$('otherWrap').classList.toggle('hide',$('leaveType').value!=='Other');$('shiftWrap').classList.toggle('hide',$('workHoursAbsent').value!=='12');$('customHoursWrap').classList.toggle('hide',$('workHoursAbsent').value!=='custom')}
 function applyShiftAuto(){let hrs=$('workHoursAbsent').value;let d=$('firstAbsentDate').value||$('date').value||today();$('firstAbsentDate').value=d;if(hrs==='24'){$('firstAbsentHour').value='7:00 AM';$('lastAbsentHour').value='7:00 AM';$('lastAbsentDate').value=addDays(d,1)}else if(hrs==='12'){if($('shiftType').value==='night'){$('firstAbsentHour').value='7:00 PM';$('lastAbsentHour').value='7:00 AM';$('lastAbsentDate').value=addDays(d,1)}else{$('firstAbsentHour').value='7:00 AM';$('lastAbsentHour').value='7:00 PM';$('lastAbsentDate').value=d}}updateLeaveUI();updatePreview()}
@@ -137,7 +119,7 @@ function displayHours(){let v=$('workHoursAbsent').value;if(v==='custom')return 
 function dataFromInputs(){let o=current||{id:crypto.randomUUID(),createdAt:new Date().toISOString()};fields.forEach(f=>{if($(f))o[f]=$(f).value});if($('employeeName')&&$('personTakingLeaveName')&&!$('personTakingLeaveName').value)$('personTakingLeaveName').value=$('employeeName').value;o.personTakingLeaveName=$('personTakingLeaveName').value;o.workHoursAbsent=displayHours();o.replacementSignature=canvases.sigReplacement?.data()||o.replacementSignature||'';o.personTakingLeaveSignature=canvases.sigLeave?.data()||o.personTakingLeaveSignature||'';o.supervisorSignature=canvases.sigSupervisor?.data()||o.supervisorSignature||'';o.firstExchange=o.exchangeKind==='first';o.exchangePayback=o.exchangeKind==='payback';o.owedBy=o.exchangeKind==='first'?o.employeeName:o.replacementName;o.owedTo=o.exchangeKind==='first'?o.replacementName:o.employeeName;o.dueDate=addMonths(o.date||today(),6);o.status='Active';return o}
 async function saveExchange(){let o=dataFromInputs();current=o;let all=getAll().filter(x=>x.id!==o.id);all.unshift(o);setAll(all);saveProfile({employeeName:o.employeeName,rank:o.rank});try{await saveExchangeToSupabase(o);alert('Saved on this device and synced to Supabase.')}catch(e){console.error(e);alert('Saved on this device, but Supabase sync failed: '+(e.message||e))}renderList();updatePreview()}
 function openEx(id){let o=getAll().find(x=>x.id===id);if(!o)return;current=o;fields.forEach(f=>{if($(f))$(f).value=o[f]||''});if(o.workHoursAbsent&&!['12','24'].includes(String(o.workHoursAbsent))){$('workHoursAbsent').value='custom';$('customWorkHours').value=o.workHoursAbsent};updateLeaveUI();show('form');setTimeout(()=>{canvases.sigReplacement?.set(o.replacementSignature);canvases.sigLeave?.set(o.personTakingLeaveSignature);canvases.sigSupervisor?.set(o.supervisorSignature);updatePreview()},50)}
-function renderList(){let all=getAll();$('exchangeList').innerHTML=all.length?all.map(o=>`<div class="list-item"><div><b>${esc(o.employeeName||'No name')}</b><div class="muted">${esc(o.replacementName||'No replacement')} • ${esc(o.workHoursAbsent||'0')} hrs • Due ${esc(o.dueDate||'')}</div></div><div>${badge(o.dueDate||today())}<br><button class="btn small secondary" onclick="openEx('${o.id}')">Open</button></div></div>`).join(''):'<p class="muted">No saved exchanges yet.</p>'}
+function renderList(){let all=getAll();$('exchangeList').innerHTML=all.length?all.map(o=>`<div class="list-item"><div><b>${esc(o.employeeName||'No name')}</b><div class="muted">${esc(o.replacementName||'No replacement')} • ${esc(o.workHoursAbsent||'0')} hrs • Due ${esc(o.dueDate||'')}</div></div><div>${badge(o.dueDate||today())}<br><button type="button" class="btn small secondary" onclick="openEx('${o.id}')">Open</button></div></div>`).join(''):'<p class="muted">No saved exchanges yet.</p>'}
 function renderBalance(){let all=getAll(),map={};all.forEach(o=>{let k=(o.owedBy||'Unknown')+' → '+(o.owedTo||'Unknown');map[k]=map[k]||{hrs:0,due:o.dueDate};map[k].hrs+=Number(o.workHoursAbsent||0);if((o.dueDate||'')<map[k].due)map[k].due=o.dueDate});$('balanceList').innerHTML=Object.keys(map).length?Object.entries(map).map(([k,v])=>`<div class="list-item"><div><b>${esc(k)}</b><div class="muted">${v.hrs} total hours • next due ${v.due}</div></div>${badge(v.due)}</div>`).join(''):'<p class="muted">No balances yet.</p>'}
 function posKey(key,val,cls=''){let l=layout()[key]||BASE_LAYOUT[key];return `<div class="pv ${cls}" data-key="${key}" style="left:${l.x}%;top:${l.y}%;width:${l.w}%;height:${l.h}%">${val||''}</div>`}
 function sig(src){return src?`<img src="${src}">`:''}
@@ -149,7 +131,7 @@ function linkMessage(role,url){let o=dataFromInputs();let who=role==='supervisor
 
 ET form: ${url}`}
 async function copyRichMessage(role,url){let text=linkMessage(role,url);try{if(navigator.clipboard&&window.ClipboardItem){let html=`<p>Hey, here’s my ET form to exchange time on ${fmtDate(dataFromInputs().firstAbsentDate||dataFromInputs().date)} with ${esc(role==='supervisor'?'the supervisor':(dataFromInputs().replacementName||'you'))}. Click here to sign it.</p><p><a href="${url}">ET form</a></p>`;await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([text],{type:'text/plain'})})]);alert('Message copied.')}else{await navigator.clipboard.writeText(text);alert('Message copied.')}}catch(e){prompt('Copy this message:',text)}}
-function makeRoleLink(role){let url=roleUrl(role);let box=$(role==='supervisor'?'supervisorLinkBox':'replacementLinkBox');let label=role==='supervisor'?'Supervisor':'Replacement';box.classList.remove('hide');box.innerHTML=`<b>${label} signature link ready</b><br><a href="${safeAttr(url)}" target="_blank">ET form</a><br><br><button class="btn small linkblue" onclick="copyRichMessage('${role}','${safeAttr(url)}')">Copy Message</button> <button class="btn small secondary" onclick="shareLink('${safeAttr(url)}')">Share</button>`}
+function makeRoleLink(role){let url=roleUrl(role);let box=$(role==='supervisor'?'supervisorLinkBox':'replacementLinkBox');let label=role==='supervisor'?'Supervisor':'Replacement';box.classList.remove('hide');box.innerHTML=`<b>${label} signature link ready</b><br><a href="${safeAttr(url)}" target="_blank">ET form</a><br><br><button type="button" class="btn small linkblue" onclick="copyRichMessage('${role}','${safeAttr(url)}')">Copy Message</button> <button type="button" class="btn small secondary" onclick="shareLink('${safeAttr(url)}')">Share</button>`}
 function shareLink(url){let text='ET form';if(navigator.share)navigator.share({title:'ET form',text,url});else navigator.clipboard.writeText(url)}
 function loadSign(){let h=location.hash;if(!h.startsWith('#sign='))return;try{current=JSON.parse(decodeURIComponent(escape(atob(h.slice(6)))));let role=current.signRole||'replacement';$('signTitle').textContent=role==='supervisor'?'Supervisor Signature Only':'Replacement Signature Only';$('remoteSignerLabel').textContent=role==='supervisor'?'Supervisor signs here':'Replacement signs here';$('signNotice').textContent=role==='supervisor'?'Read-only ET form. You can only add the supervisor signature.':'Read-only ET form. You can only add the replacement signature.';show('sign');updatePreview()}catch(e){alert('Bad signing link')}}
 function acceptRemoteSig(){if(!current)return;let sigData=canvases.sigRemote?.data();if(!sigData){alert('Please sign first.');return}let role=current.signRole||'replacement';if(role==='supervisor')current.supervisorSignature=sigData;else current.replacementSignature=sigData;updatePreview();alert((role==='supervisor'?'Supervisor':'Replacement')+' signature added on this device. Print or save PDF now. Real sync requires backend.')}
@@ -162,7 +144,6 @@ async function copyAlignmentData(){exportAlignment();try{await navigator.clipboa
 function resetAlignment(){localStorage.removeItem(ALIGN_KEY);updatePreview();exportAlignment()}
 fields.forEach(f=>setTimeout(()=>{let el=$(f);if(!el)return;el.addEventListener('input',()=>{if(f==='employeeName'&&$('personTakingLeaveName'))$('personTakingLeaveName').value=$('employeeName').value;updatePreview()});el.addEventListener('change',()=>{if(f==='employeeName'&&$('personTakingLeaveName'))$('personTakingLeaveName').value=$('employeeName').value;if(['leaveType','workHoursAbsent','customWorkHours','shiftType','firstAbsentDate','date'].includes(f))applyShiftAuto();else updatePreview()})},0));
 ['sigReplacement','sigLeave','sigSupervisor','sigRemote'].forEach(initSig);
-newExchange();show('dash');loadSign();exportAlignment();
-</script>
+newExchange();show('dash');loadSign();exportAlignment();</script>
 </body>
 </html>
